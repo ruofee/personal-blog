@@ -36,7 +36,7 @@ export default defineUserConfig({
     comment: {
       enable: true,
       option: {
-        repo: 'ruofee/peasonal-blog',
+        repo: 'ruofee/personal-blog',
         repoId: 'R_kgDOKAVpRw',
         category: 'Announcements',
         categoryId: 'DIC_kwDOKAVpR84CYKi6',

@@ -163,7 +163,7 @@ this.unlisten = props.history.listen(location => {
 
 之所以在构造函数中就注册监听函数, 而不是在 `componentDidMount` 中进行监听, 官方是这么解释的:
 
-> This is a bit of a hack. We have to start listening for location changes here in the constructor in case there are any <Redirect>s on the initial render. If there are, they will replace/push when they mount and since cDM fires in children before parents, we may get a new location before the <Router> is mounted.
+> This is a bit of a hack. We have to start listening for location changes here in the constructor in case there are any `<Redirect>`s on the initial render. If there are, they will replace/push when they mount and since cDM fires in children before parents, we may get a new location before the `<Router>` is mounted.
 
 大概意思就是, 因为子组件会比父组件更早渲染完成, 以及 `<Redirect>` 的存在, 若是在 `<Router>` 的 `componentDidMount` 生命周期中对 `history.location` 进行监听, 则有可能在监听事件注册之前, `history.location` 已经由于 `<Redirect>` 发生了多次改变, 因此我们需要在 `<Router>` 的 `constructor` 中就注册监听事件;
 
