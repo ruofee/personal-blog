@@ -8,6 +8,14 @@ on:
       - LICENSE
       - .gitignore
       - scripts
+  pull:
+    branches:
+      - master
+    paths-ignore: # 下列文件的变更不触发部署
+      - README.md
+      - LICENSE
+      - .gitignore
+      - scripts
 jobs:
   deploy:
     runs-on: ubuntu-18.04
