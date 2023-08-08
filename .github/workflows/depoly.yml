@@ -24,7 +24,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install
-      run: npm install -g pnpm && pnpm install
+      run: npm install -g pnpm@7.18.1 && pnpm install
     - name: Build
       run: pnpm build
     - name: Deploy to Server
