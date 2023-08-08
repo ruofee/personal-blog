@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout # 1. 将仓库内master分支的内容下载到工作目录
       uses: actions/checkout@v2
