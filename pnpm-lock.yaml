@@ -7,7 +7,7 @@ specifiers:
   vue: ^3.3.4
   vue-router: ^4.2.4
   vuepress: 2.0.0-beta.64
-  vuepress-theme-blue: 0.0.13-alpha
+  vuepress-theme-blue: 0.0.14-alpha
 
 devDependencies:
   '@vuepress/client': 2.0.0-beta.64
@@ -16,7 +16,7 @@ devDependencies:
   vue: 3.3.4
   vue-router: 4.2.4_vue@3.3.4
   vuepress: 2.0.0-beta.64_zppmv23z6wsc2yl7iwvwycrhyi
-  vuepress-theme-blue: 0.0.13-alpha
+  vuepress-theme-blue: 0.0.14-alpha
 
 packages:
 
@@ -262,8 +262,8 @@ packages:
     resolution: {integrity: sha512-kXOeFbfCm4fFf2A3WwVEeQj55tMZa8c8/f9AKHMobQMkzNUfUj+antR3fRPaZJawsa1aZiP/Da3ndpZrwEe4rQ==}
     dev: true
 
-  /@lit/reactive-element/1.6.2:
-    resolution: {integrity: sha512-rDfl+QnCYjuIGf5xI2sVJWdYIi56CTCwWa+nidKYX6oIuBYwUbT/vX4qbUDlHiZKJ/3FRNQ/tWJui44p6/stSA==}
+  /@lit/reactive-element/1.6.3:
+    resolution: {integrity: sha512-QuTgnG52Poic7uM1AN5yJ09QMe0O28e10XzSvWDz02TJiiKee4stsiownEIadWm8nYzyDAyT+gKzUoZmiWQtsQ==}
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.1.1
     dev: true
@@ -538,7 +538,7 @@ packages:
       - ts-node
     dev: true
 
-  /@vuepress/bundler-vite/2.0.0-beta.64_less@4.1.3:
+  /@vuepress/bundler-vite/2.0.0-beta.64_less@4.2.0:
     resolution: {integrity: sha512-VoEnavMbMZgKQTeKsSv/ybkQRiJkNJwiCeOkJiK7WqmoNSOcUwMJhsmViMMhUmFt+TyVN+GkXdd0kpcZIiKVhg==}
     dependencies:
       '@vitejs/plugin-vue': 4.2.3_vite@4.3.9+vue@3.3.4
@@ -551,7 +551,7 @@ packages:
       postcss: 8.4.25
       postcss-load-config: 4.0.1_postcss@8.4.25
       rollup: 3.26.2
-      vite: 4.3.9_less@4.1.3
+      vite: 4.3.9_less@4.2.0
       vue: 3.3.4
       vue-router: 4.2.4_vue@3.3.4
     transitivePeerDependencies:
@@ -1183,7 +1183,7 @@ packages:
   /giscus/1.3.0:
     resolution: {integrity: sha512-A3tVLgSmpnh2sX9uGjo9MbzmTTEJirSyFUPRvkipvy37y9rhxUYDoh9kO37QVrP7Sc7QuJ+gihB6apkO0yDyTw==}
     dependencies:
-      lit: 2.7.6
+      lit: 2.8.0
     dev: true
 
   /github-markdown-css/5.2.0:
@@ -1337,8 +1337,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /less/4.1.3:
-    resolution: {integrity: sha512-w16Xk/Ta9Hhyei0Gpz9m7VS8F28nieJaL/VyShID7cYvP6IL5oHeL6p4TXSDJqZE/lNv0oJ2pGVjJsRkfwm5FA==}
+  /less/4.2.0:
+    resolution: {integrity: sha512-P3b3HJDBtSzsXUl0im2L7gTO5Ubg8mEN6G8qoTS77iXxXX4Hvu4Qj540PZDvQ8V6DmX6iXo98k7Md0Cm1PrLaA==}
     engines: {node: '>=6'}
     hasBin: true
     dependencies:
@@ -1368,26 +1368,26 @@ packages:
       uc.micro: 1.0.6
     dev: true
 
-  /lit-element/3.3.2:
-    resolution: {integrity: sha512-xXAeVWKGr4/njq0rGC9dethMnYCq5hpKYrgQZYTzawt9YQhMiXfD+T1RgrdY3NamOxwq2aXlb0vOI6e29CKgVQ==}
+  /lit-element/3.3.3:
+    resolution: {integrity: sha512-XbeRxmTHubXENkV4h8RIPyr8lXc+Ff28rkcQzw3G6up2xg5E8Zu1IgOWIwBLEQsu3cOVFqdYwiVi0hv0SlpqUA==}
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.1.1
-      '@lit/reactive-element': 1.6.2
-      lit-html: 2.7.5
+      '@lit/reactive-element': 1.6.3
+      lit-html: 2.8.0
     dev: true
 
-  /lit-html/2.7.5:
-    resolution: {integrity: sha512-YqUzpisJodwKIlbMFCtyrp58oLloKGnnPLMJ1t23cbfIJjg/H9pvLWK4XS69YeubK5HUs1UE4ys9w5dP1zg6IA==}
+  /lit-html/2.8.0:
+    resolution: {integrity: sha512-o9t+MQM3P4y7M7yNzqAyjp7z+mQGa4NS4CxiyLqFPyFWyc4O+nodLrkrxSaCTrla6M5YOLaT3RpbbqjszB5g3Q==}
     dependencies:
       '@types/trusted-types': 2.0.3
     dev: true
 
-  /lit/2.7.6:
-    resolution: {integrity: sha512-1amFHA7t4VaaDe+vdQejSVBklwtH9svGoG6/dZi9JhxtJBBlqY5D1RV7iLUYY0trCqQc4NfhYYZilZiVHt7Hxg==}
+  /lit/2.8.0:
+    resolution: {integrity: sha512-4Sc3OFX9QHOJaHbmTMk28SYgVxLN3ePDjg7hofEft2zWlehFL3LiAuapWc4U/kYwMYJSh2hTCPZ6/LIC7ii0MA==}
     dependencies:
-      '@lit/reactive-element': 1.6.2
-      lit-element: 3.3.2
-      lit-html: 2.7.5
+      '@lit/reactive-element': 1.6.3
+      lit-element: 3.3.3
+      lit-html: 2.8.0
     dev: true
 
   /log-symbols/5.1.0:
@@ -1900,7 +1900,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/4.3.9_less@4.1.3:
+  /vite/4.3.9_less@4.2.0:
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -1926,7 +1926,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.17.19
-      less: 4.1.3
+      less: 4.2.0
       postcss: 8.4.25
       rollup: 3.26.2
     optionalDependencies:
@@ -1975,8 +1975,8 @@ packages:
       '@vue/shared': 3.3.4
     dev: true
 
-  /vuepress-theme-blue/0.0.13-alpha:
-    resolution: {integrity: sha512-SV4i9uEo6CEHs7sfitgJUD4wUG7J5XEnZTgi+Ran+4+dOpgbnRFeW7a/Z64SLiehh4Eu5Tv+MPTUIb9k+Bhbrw==}
+  /vuepress-theme-blue/0.0.14-alpha:
+    resolution: {integrity: sha512-cLRah8jVCezP9cFTwB/pbgAVQEkjZh8AzgpPvy58Qa/AGSfcRgXbX95Wvim8XXspWPekOZkcOsRaG68cHIiIgQ==}
     dependencies:
       '@giscus/vue': 2.3.0_vue@3.3.4
       '@vuepress/client': 2.0.0-beta.64
@@ -1990,13 +1990,13 @@ packages:
       await-to-js: 3.0.0
       dayjs: 1.11.9
       github-markdown-css: 5.2.0
-      less: 4.1.3
+      less: 4.2.0
       prismjs: 1.29.0
       tiny-pinyin: 1.3.2
       vue: 3.3.4
       vue-ellipsis-3: 0.0.6_vue@3.3.4
       vue-router: 4.2.4_vue@3.3.4
-      vuepress: 2.0.0-beta.64_ozjkxwaonu6vyof4ajosb4kfla
+      vuepress: 2.0.0-beta.64_ylvp343jm3gmigjtligdivaeqa
     transitivePeerDependencies:
       - '@types/node'
       - '@vue/composition-api'
@@ -2012,7 +2012,7 @@ packages:
       - webpack
     dev: true
 
-  /vuepress-vite/2.0.0-beta.64_ozjkxwaonu6vyof4ajosb4kfla:
+  /vuepress-vite/2.0.0-beta.64_ylvp343jm3gmigjtligdivaeqa:
     resolution: {integrity: sha512-K0ZdIJEEC3JWTke4R+DUYIvvoZ991zCGq92XkvjEDZ1+15meMUxmIcFFIwEbha5nmUjJrOGQVXrkn11nazT75w==}
     engines: {node: '>=16.19.0'}
     hasBin: true
@@ -2020,7 +2020,7 @@ packages:
       '@vuepress/client': 2.0.0-beta.64
       vue: ^3.3.4
     dependencies:
-      '@vuepress/bundler-vite': 2.0.0-beta.64_less@4.1.3
+      '@vuepress/bundler-vite': 2.0.0-beta.64_less@4.2.0
       '@vuepress/cli': 2.0.0-beta.64
       '@vuepress/client': 2.0.0-beta.64
       '@vuepress/core': 2.0.0-beta.64
@@ -2072,12 +2072,12 @@ packages:
       - webpack
     dev: true
 
-  /vuepress/2.0.0-beta.64_ozjkxwaonu6vyof4ajosb4kfla:
+  /vuepress/2.0.0-beta.64_ylvp343jm3gmigjtligdivaeqa:
     resolution: {integrity: sha512-7Z9DyxPn/2E7LVEAtvrFVwatbwRWoaVXT8uB7+/nhoDSjpWahzgCnzCcdVEPw0nHU4mYN5S27yl0Pfcda1w9Zg==}
     engines: {node: '>=16.19.0'}
     hasBin: true
     dependencies:
-      vuepress-vite: 2.0.0-beta.64_ozjkxwaonu6vyof4ajosb4kfla
+      vuepress-vite: 2.0.0-beta.64_ylvp343jm3gmigjtligdivaeqa
     transitivePeerDependencies:
       - '@types/node'
       - '@vue/composition-api'
