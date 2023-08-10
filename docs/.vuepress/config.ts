@@ -10,6 +10,7 @@ export default defineUserConfig({
     website: {
       name: title,
       footers: ['备案号: 粤ICP备17107892号-1'],
+      ensureAboutMe: true,
     },
     user: {
       username: 'Ruofee',
