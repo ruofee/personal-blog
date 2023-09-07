@@ -100,6 +100,6 @@ prepare 将会在执行完 `npm install` 之后触发，以下是 npm install �
 
 ## 总结
 
-以来是实现 Git Hooks 共享的一种思路，主要是利用 package-script 实现安装项目依赖时触发脚本，执行 `git config core.hooksPath new_path` 将 Git Hooks 的目标文件夹修改成其他文件夹。
+以上是实现 Git Hooks 共享的一种思路，主要是利用 package-script 实现安装项目依赖时触发脚本，执行 `git config core.hooksPath new_path` 将 Git Hooks 的目标文件夹修改成其他文件夹。
 
 除此之外，还有其他的 Git Hooks 共享思路，比如将 Git Hooks 存放在其他文件夹中，再利用 package-script 触发脚本，在每次安装依赖时将这个文件夹复制到 .git/hooks 中，老版本的 Husky 大概就是这个思路。
