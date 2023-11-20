@@ -12,6 +12,7 @@ export default defineUserConfig({
       footers: ['备案号: 粤ICP备17107892号-1'],
       ensureAboutMe: true,
       hostname: 'http://ruofee.cn',
+      baiduAnalytics: '27cf92324e32681c70fd845983ed1725',
     },
     user: {
       username: 'Ruofee',

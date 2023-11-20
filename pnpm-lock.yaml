@@ -24,8 +24,8 @@ devDependencies:
     specifier: 2.0.0-rc.0
     version: 2.0.0-rc.0(@vuepress/client@2.0.0-rc.0)(less@4.2.0)(vue@3.3.8)
   vuepress-theme-blue:
-    specifier: 0.0.20-alpha
-    version: 0.0.20-alpha
+    specifier: 0.0.21-alpha
+    version: 0.0.21-alpha
 
 packages:
 
@@ -2265,8 +2265,8 @@ packages:
       - typescript
     dev: true
 
-  /vuepress-theme-blue@0.0.20-alpha:
-    resolution: {integrity: sha512-2u895aAxbTOFiOIg1gc4ByBoIC02K/Jlg5XGLpjlQD2JYQsUoi7ThXg2YQlFflIuieFmey8l4QMH0oqUxxDYLA==}
+  /vuepress-theme-blue@0.0.21-alpha:
+    resolution: {integrity: sha512-SlsqZbGw8nsbNx6PoK0dZZGOmG/KQuQ5vLWQoCfj9IUA2ZyJB4V3kcqWHptA+0B6hbITMiM1CZ8UH3O0/SNtUA==}
     dependencies:
       '@giscus/vue': 2.3.0(vue@3.3.8)
       '@vuepress/client': 2.0.0-rc.0
