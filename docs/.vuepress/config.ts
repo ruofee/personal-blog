@@ -6,6 +6,15 @@ const title = 'Ruofee的博客'
 export default defineUserConfig({
   title,
   description: '欢迎来到Ruofee的博客',
+  head: [
+    [
+      'meta',
+      {
+        name: 'google-site-verification',
+        content: 'mblKykTp7xp-vtIOgfqxNAVMbLLYqnqk0pN3BfYKaJ0',
+      },
+    ],
+  ],
   theme: VuepressThemeBlue({
     website: {
       name: title,
