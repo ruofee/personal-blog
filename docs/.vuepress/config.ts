@@ -11,6 +11,7 @@ export default defineUserConfig({
       name: title,
       footers: ['备案号: 粤ICP备17107892号-1'],
       ensureAboutMe: true,
+      hostname: 'http://ruofee.cn',
     },
     user: {
       username: 'Ruofee',
