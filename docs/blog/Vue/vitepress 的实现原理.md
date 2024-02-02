@@ -113,6 +113,7 @@ export async function createServer(
 看完上面的内容，你可能会有点疑惑，正常来说，Vite 需要一个 HTML 作为入口文件，但我们找遍 Vitepress 也未发现我们想要的 HTML 文件……其实这部分工作由 Vite 插件完成，在上面的代码片段中，我们创建了 Vite 服务，同时配置了插件：
 
 ```ts
+// src/node/server.ts
 return createViteServer({
     // 省略代码
     plugins: await createVitePressPlugin(config, false, {}, {}, recreateServer),
@@ -123,6 +124,7 @@ return createViteServer({
 `createVitePressPlugin` 函数返回了一个插件列表，其中有一个名为 `vitepress` 的插件：
 
 ```ts
+// src/node/plugin.ts
 const vitePressPlugin: Plugin = {
     name: 'vitepress',
     // 省略代码
@@ -170,6 +172,7 @@ vitepress 插件中定义了 `configureServer` 生命周期，并在 `configureS
 Vitepress 并没有使用 Vuejs 的官方路由方案（Vue Router），而是自己实现了一个简单的路由模块：首先通过监听 window 的点击事件，当用户点击超链接元素时，执行跳转函数 `go`：
 
 ```ts
+// src/client/app/router.ts
 async function go(href: string = inBrowser ? location.href : '/') {
     href = normalizeHref(href)
     if ((await router.onBeforeRouteChange?.(href)) === false) return
@@ -187,21 +190,36 @@ function updateHistory(href: string) {
 }
 ```
 
-通过执行 `updateHistory`，调用 `history.replaceState` 以及 `history.pushState`，更新 url（此时不更新 页面，具体可以查看 [history.replaceState ](https://developer.mozilla.org/zh-CN/docs/Web/API/History/replaceState)和 [history.pushState](https://developer.mozilla.org/zh-CN/docs/Web/API/History/pushState)）；再调用 `loadPage` 加载 url 对应的页面，核心代码如下：
+通过执行 `updateHistory`，先调用 `history.replaceState`，将当前页面的位置信息 `scrollY` 保存到 history state 中；再调用 `history.pushState`，更新 url；最后再调用 `loadPage` 加载 url 对应的页面，核心代码如下：
 
 ```ts
 // src/client/app.ts
-(path) => {
-    let pageFilePath = pathToFile(path)
-    let pageModule = null
-    // 省略代码
-    pageModule = import(/*@vite-ignore*/ pageFilePath + '?t=' + Date.now())
-    // 省略代码
-    return pageModule
-}
+let pageFilePath = pathToFile(path)
+let pageModule = null
+// 省略代码
+pageModule = import(/*@vite-ignore*/ pageFilePath + '?t=' + Date.now())
+// 省略代码
+return pageModule
+
 ```
 
 `pathToFile` 函数将传入的 url 转成 md 后缀的路径，也就是对应的 Markdown 文件，再通过 `import` 导入对应路径的文件；举个例子，假设 url 为 `/ruofee`，那么最终结果为：`import(/*@vite-ignore*/ 'ruofee.md?t=当前的时间戳')`；
+
+同时监听 popstate 事件，当用户使用浏览器返回、前进等操作时，调用 `loadPage` 方法，加载 url 对应的 md 文件，并根据 history state 中保存的页面位置信息进行定位：
+
+```ts
+// src/client/app/router.ts
+window.addEventListener('popstate', async (e) => {
+    await loadPage(
+        normalizeHref(location.href),
+        (e.state && e.state.scrollPosition) || 0
+    )
+    router.onAfterRouteChanged?.(location.href)
+})
+
+// 省略代码 - loadPage
+window.scrollTo(0, scrollPosition)
+```
 
 #### 创建 Vue 应用
 
@@ -242,6 +260,7 @@ const VitePressApp = defineComponent({
 再将上面的路由对象注册到 Vue 应用中，并注册两个全局组件：`Content` 和 `ClientOnly`：
 
 ```ts
+// src/client/app.ts
 // 将路由注入 app
 app.provide(RouterSymbol, router)
 const data = initData(router.route)
