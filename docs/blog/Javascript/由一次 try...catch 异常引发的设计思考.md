@@ -24,8 +24,7 @@ const Page = () => {
         fetchData()
             .then(res => {
                 setData(data.name);
-            })
-            .catch(err => {
+            }, err => {
                 toast.error('请求异常');
             });
     };
@@ -57,7 +56,7 @@ const getData = async () => {
 
 细心的朋友已经发现了，上面的代码存在“瑕疵”：当 `setData(data.name)` 发生报错时，同样会被 try...catch 捕获到，并触发错误提示。
 
-在真实场景中，业务逻辑更为复杂，或许是一时粗心写出来的语法错误，又或许是某个数据处理不当导致的错误，但由于 try...catch 的过度捕获，导致错误淹没于代码海洋中，若你足够粗心 0.0，这个简单的错误甚至会被发布到生产环境中……
+在真实场景中，业务逻辑更为复杂，或许是一时粗心写出来的语法错误，又或许是某个数据处理不当导致的错误，但由于 try...catch 的过度捕获，导致错误淹没于代码海洋中，只展示一段不知所谓的 toast；而若你足够粗心 0.0，这个简单的错误甚至会被发布到生产环境中……
 
 ## 如何解决
 
@@ -173,8 +172,8 @@ const onSubmit = async () => {
 
 ```js
 const ErrorConstants = {
-    UploadFile = 'UploadFile',
-    SubmitData = 'SubmitData',
+    UploadFile = Symbol(),
+    SubmitData = Symbol(),
 };
 ```
 
@@ -203,6 +202,10 @@ const onSubmit = async () => {
         };
         await submitData(params);
     } catch (error) {
+        if (!error?.type) {
+            console.error(error);
+            return;
+        }
         switch(error?.type) {
             case ErrorConstants.UploadFile: {
                 toast.error('上传文件异常');
@@ -216,6 +219,8 @@ const onSubmit = async () => {
     }
 };
 ```
+
+catch 逻辑中做了一步关键处理，当捕获到的错误不存在错误类型时，我们会使用 `console.error` 将错误打印到控制台中，让其与正常语法错误行为保持一致。
 
 这种设计完美地将错误处理逻辑和主流程逻辑进行解耦，同时用户也不再需要思考 try...catch 是否会过度捕获错误，而单个的 try...catch 也提升了代码的可读性，真是“优雅”！
 
