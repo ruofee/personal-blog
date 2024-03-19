@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@sentry/vue": "^7.107.0",
     "@vuepress/client": "2.0.0-rc.0",
+    "@vuepress/utils": "2.0.0-rc.2",
     "await-to-js": "^3.0.0",
     "fs-extra": "^11.1.1",
     "vue": "^3.3.8",

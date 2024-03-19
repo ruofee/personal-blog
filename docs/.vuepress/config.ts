@@ -1,9 +1,12 @@
 import { defineUserConfig } from 'vuepress'
+import { getDirname } from '@vuepress/utils'
+import { resolve } from 'path'
 import VuepressThemeBlue, { LinkType } from 'vuepress-theme-blue'
 
 const title = 'Ruofee的博客'
 
 export default defineUserConfig({
+  clientConfigFile: resolve(getDirname(import.meta.url), './client.ts'),
   title,
   description: '欢迎来到Ruofee的博客',
   head: [
