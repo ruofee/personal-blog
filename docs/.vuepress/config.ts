@@ -17,6 +17,14 @@ export default defineUserConfig({
         content: 'mblKykTp7xp-vtIOgfqxNAVMbLLYqnqk0pN3BfYKaJ0',
       },
     ],
+    [
+      'link',
+      {
+        rel: 'icon',
+        href: '/favicon.ico',
+        sizes: 'any',
+      },
+    ],
   ],
   theme: VuepressThemeBlue({
     website: {
