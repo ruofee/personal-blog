@@ -1,9 +1,12 @@
 import { defineUserConfig } from 'vuepress'
+import { getDirname } from '@vuepress/utils'
+import { resolve } from 'path'
 import VuepressThemeBlue, { LinkType } from 'vuepress-theme-blue'
 
 const title = 'Ruofee的博客'
 
 export default defineUserConfig({
+  clientConfigFile: resolve(getDirname(import.meta.url), './client.ts'),
   title,
   description: '欢迎来到Ruofee的博客',
   head: [
@@ -12,6 +15,14 @@ export default defineUserConfig({
       {
         name: 'google-site-verification',
         content: 'mblKykTp7xp-vtIOgfqxNAVMbLLYqnqk0pN3BfYKaJ0',
+      },
+    ],
+    [
+      'link',
+      {
+        rel: 'icon',
+        href: '/favicon.ico',
+        sizes: 'any',
       },
     ],
   ],

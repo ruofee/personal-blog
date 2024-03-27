@@ -4,7 +4,7 @@ date: 2024/2/22
 banner: http://img.ruofee.cn/code
 ---
 
-最近写代码遇到一个 Bug，进而引发了一些关于异步任务设计相关的思考。
+最近写代码遇到一个 Bug，进而引发了一些关于网络请求设计相关的思考。
 
 ## 背景
 
@@ -23,9 +23,8 @@ const Page = () => {
     const getData = () => {
         fetchData()
             .then(res => {
-                setData(res.name);
-            })
-            .catch(err => {
+                setData(data.name);
+            }, err => {
                 toast.error('请求异常');
             });
     };
@@ -40,36 +39,41 @@ const Page = () => {
 };
 ```
 
-这是一个 React 的例子：页面中有一个按钮，用户点击按钮之后发起请求，在请求返回时展示到页面中；如果请求失败，则会捕获错误并进行 toast 提示。大量的 Promise 写法会影响代码的可读性，秉持着“写代码要优雅”的理念，我们使用 async/await 代替 Promise，并使用 try...catch 捕获错误：
+这是一个 React 的例子：用户点击按钮后发起网络请求，并在请求返回后将其展示到页面中；若请求失败，则会捕获错误并进行 toast 提示。
+
+大量的 Promise 写法会影响代码的可读性，秉持着“写代码要优雅”的理念，我们使用 async/await 代替 Promise，并使用 try...catch 捕获错误：
 
 ```jsx
 const getData = async () => {
     try {
         const data = await fetchData();
-        setData(res.name);
+        setData(data.name);
     } catch (err) {
         toast.error('请求异常');
     }
 };
 ```
 
-细心的朋友已经发现了，上面的代码存在瑕疵：当 `setData(res.name)` 发生报错时，同样会被 try...catch 捕获到，并触发错误提示。你或许会问：`setData(res.name)` 这么简单的代码怎么会报错，但如果是更为复杂的数据处理逻辑呢，可能是一时粗心写出来的语法错误，但因为 try...catch 的异常捕获，导致错误没被及时发现，甚至会造成更为严重的后果……
+细心的朋友已经发现了，上面的代码存在“瑕疵”：当 `setData(data.name)` 发生报错时，同样会被 try...catch 捕获到，并触发错误提示。
+
+在真实场景中，业务逻辑更为复杂，或许是一时粗心写出来的语法错误，又或许是某个数据处理不当导致的错误，但由于 try...catch 的过度捕获，导致错误淹没于代码海洋中，只展示一段不知所谓的 toast；而若你足够粗心 0.0，这个简单的错误甚至会被发布到生产环境中……
 
 ## 如何解决
 
 ### 缩小 try...catch 范围
 
-把 try...catch 范围缩小，仅包含目标异步函数：
+把 try...catch 范围缩小，仅包含目标网络请求函数：
 
 ```jsx
 const getData = async () => {
     let data;
     try {
         data = await fetchData();
-        setData(res.name);
     } catch (err) {
         toast.error('请求异常');
+        return;
     }
+    setData(data.name);
 };
 ```
 
@@ -79,7 +83,7 @@ const getData = async () => {
 
 ### await-to-js
 
-[await-to-js](https://github.com/scopsy/await-to-js) 是一个 async/await 的错误捕获方案，能够捕获异步函数的错误，并作为数组的第一项进行返回：
+[await-to-js](https://github.com/scopsy/await-to-js) 是一个 async/await 的错误捕获方案，当异步函数发生报错时，await-to-js 会捕获并将错误作为数组的第一项进行返回：
 
 ```jsx
 import { to } from 'await-to-js';
@@ -90,11 +94,11 @@ const getData = async () => {
         toast.error('请求异常');
         return;
     }
-    setData(res.name);
+    setData(data.name);
 };
 ```
 
-在使用 await-to-js 进行改造后，错误捕获粒度缩小到目标异步函数，并且不再需要麻烦的 try...catch 了，代码变得更加优雅！
+在使用 await-to-js 进行改造后，错误捕获范围缩小到目标网络请求函数，并且不再需要麻烦的 try...catch 了，代码变得更加优雅！
 
 await-to-js 的原理其实很简单，源码如下：
 
@@ -135,11 +139,13 @@ const onSubmit = async () => {
         return;
     }
 
-    // 对 fileId 进行处理
-    const _fileId = resolveFileId(fileId);
-
     // 提交表单
-    const [submitError] = await to(submit(fileId));
+    const params = {
+        fileId,
+        // 表单的其他值
+        ...formValue,
+    };
+    const [submitError] = await to(submitForm(params));
     if (submitError) {
         toast.error('提交表单异常');
         return;
@@ -149,25 +155,25 @@ const onSubmit = async () => {
 };
 ```
 
-这个例子也是一个常见的业务场景 - 表单提交，主要分为以下两步：
+这个例子也是一个常见的业务场景 - 表单提交，主要分为两步：
 
 1. 上传文件；
-2. 将上一步返回的文件 ID 作为参数发送到服务端；
+2. 将返回的文件 ID 和其他表单值组合并发送到服务端，完成表单提交；
 
-在上面的例子中，我们使用 await-to-js 包装两个异步请求函数，并在调用后判断 error 是否为 `null`，再对每个错误进行定制化的处理……而在更为复杂的场景，可能存在 n 个异步请求函数，那么我们需要包装 n 次 await-to-js，并在每次调用后再进行定制化的错误处理……没错，这很麻烦，也导致错误处理和主流程代码耦合在一起，只能说：“很不优雅！”
+在上面的例子中，我们使用 await-to-js 对两个网络请求函数进行包装，并进行定制化的错误处理；而在更为复杂的场景中，若存在 n 个网络请求，那就麻烦了：我们需要包装 n 次 await-to-js，并进行 n 次错误处理！最终错误处理和主流程代码完全耦合在一起，对这种情况，四个字总结：“很不优雅”。
 
-那么如何设计才能做到：
+那么，如何设计才能做到：
 
 1. try...catch 不过度捕获错误；
 2. “优雅” ；
-3. 错误处理和主流程代码解耦；
+3. 错误处理和主流程代码实现解耦；
 
 终于进入今天的主题了！首先，我们可以维护一个错误的枚举，代表每个网络请求的错误类型：
 
 ```js
 const ErrorConstants = {
-    UploadFile = 'UploadFile',
-    Submit = 'Submit',
+    UploadFile = Symbol(),
+    SubmitData = Symbol(),
 };
 ```
 
@@ -181,24 +187,31 @@ function uploadFile() {
 }
 ```
 
-PS：这里只是模拟网络请求发生错误时返回的错误类型，事实上，在真实业务场景中，这部分功能应该在网络请求模块中进行统一实现！
+PS：这里只是模拟网络请求发生错误时返回的错误类型，在真实业务场景中，这部分功能应该在网络请求模块中进行统一实现（当网络请求发生错误时，网络请求模块返回对应的错误类型）。
 
-使用 try...catch 在最外层进行错误捕获，当捕获到错误时，再进行错误类型判断：
+接着，使用 try...catch 在最外层进行错误捕获，当捕获到错误时，再根据错误类型进行对应的错误处理：
 
 ```js
 const onSubmit = async () => {
     try {
         const fileId = await uploadFile();
-        // 对 fileId 进行处理
-        const _fileId = resolveFileId(fileId);
-        await submit(fileId);
+        const params = {
+            fileId,
+            // 表单的其他值
+            ...formValue,
+        };
+        await submitData(params);
     } catch (error) {
-        switch(error) {
+        if (!error?.type) {
+            console.error(error);
+            return;
+        }
+        switch(error?.type) {
             case ErrorConstants.UploadFile: {
                 toast.error('上传文件异常');
                 return;
             }
-            case ErrorConstants.Submit: {
+            case ErrorConstants.SubmitData: {
                 toast.error('提交表单异常');
                 return;
             }
@@ -207,4 +220,8 @@ const onSubmit = async () => {
 };
 ```
 
-这种设计成功将错误处理逻辑和主流程逻辑进行解耦，用户也不需要去考虑 try...catch 是否过度捕获，唯一的代价是**需要对网络请求模块进行封装，在发生异常时返回特定的错误类型**。
+catch 逻辑中做了一步关键处理，当捕获到的错误不存在错误类型时，我们会使用 `console.error` 将错误打印到控制台中，让其与正常语法错误行为保持一致。
+
+这种设计完美地将错误处理逻辑和主流程逻辑进行解耦，同时用户也不再需要思考 try...catch 是否会过度捕获错误，而单个的 try...catch 也提升了代码的可读性，真是“优雅”！
+
+唯一的代价是**需要对网络请求模块进行封装，在发生异常时返回特定的错误类型**。
