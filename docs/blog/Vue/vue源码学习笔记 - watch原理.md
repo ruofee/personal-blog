@@ -8,11 +8,11 @@ banner: http://img.ruofee.cn/vue
 
 ## 🤔 介绍
 
-watch 是 vue 提供的侦听器, 用于对 data 的属性进行监听;
+watch 是 vue 提供的侦听器，用于监听属性的变化；
 
->  Vue 通过watch选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的;
->
-> 来自 [官方文档](https://cn.vuejs.org/v2/guide/computed.html#侦听器)
+> Vue 通过 watch 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的;
+> 
+> 来自 [官方文档](https://cn.vuejs.org/v2/guide/computed.html#%E4%BE%A6%E5%90%AC%E5%99%A8)
 
 ## ⛽ 用法
 
@@ -44,11 +44,11 @@ export default {
 </script>
 ```
 
-上面的例子, 使用 watch 对 data.i 进行监听, 当 data.i 发生变化时, 便会触发 watch 中的监听函数, 打印出 newVal 和 oldVal ;
+上面的例子，使用 watch 监听 data.i 的变化：当 data.i 被修改时，则会触发 watch 的回调函数。
 
-当然还有许多种用法, 例子来自[官方文档](https://cn.vuejs.org/v2/api/#watch):
+还有许多种用法，例子来自[官方文档](https://cn.vuejs.org/v2/api/#watch)：
 
-```
+````
 watch: {
   // 函数
   a: function (val, oldVal) {
@@ -78,33 +78,24 @@ watch: {
   // watch vm.e.f's value: {g: 5}
   'e.f': function (val, oldVal) { /* ... */ }
 }
-```
+````
 
 ## 🔍 源码解析
 
-注意: 本文章使用的 vue 版本为 2.6
+> 注意：本文章使用的 vue 版本为 2.6
 
-vue在 [initState](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L48) 中执行 [initWatch](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L60) 方法注册 watch:
+vue 在初始化时执行 [initWatch](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L60) 方法，注册 watch：
 
 ```js
 function initState (vm: Component) {
-  vm._watchers = []
-  const opts = vm.$options
-  if (opts.props) initProps(vm, opts.props)
-  if (opts.methods) initMethods(vm, opts.methods)
-  if (opts.data) {
-    initData(vm)
-  } else {
-    observe(vm._data = {}, true /* asRootData */)
-  }
-  if (opts.computed) initComputed(vm, opts.computed)
+  // 省略很多代码
   if (opts.watch && opts.watch !== nativeWatch) {
     initWatch(vm, opts.watch)
   }
 }
 ```
 
-顺着 [initWatch](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L60) 往下看:
+initWatch 函数代码大致如下：
 
 ```js
 function initWatch (vm: Component, watch: Object) {
@@ -121,7 +112,7 @@ function initWatch (vm: Component, watch: Object) {
 }
 ```
 
-initWatch 函数对 watch 对象进行遍历, 当对象的属性值为数组时, 对数组进行遍历执行 createWatcher 方法, 如果对象的属性值不为数组, 则直接执行 [createWatcher](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L303) 方法:
+在 initWatch 函数中，遍历 watch 对象，当对象属性为数组时，则遍历数组并执行 createWatcher 方法；如果对象属性不为数组，则直接执行 [createWatcher](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L303) 方法：
 
 ```js
 function createWatcher (
@@ -141,34 +132,20 @@ function createWatcher (
 }
 ```
 
-[isPlainObject](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/shared/util.js#L58) 方法用于判断参数是否为 "object":
+判断传入的 handler 是否为对象或字符串，实际上是兼容两种 watch 的写法：
 
 ```js
-function isPlainObject (obj: any): boolean {
-  return _toString.call(obj) === '[object Object]'
-}
-```
-
-当 handler 为对象时(指 object), 便执行: options = handler , handler = handler.handler; 即这种情况:
-
-```js
-watch: {
-  c: {
-    handler: function (val, oldVal) { /* ... */ },
-    deep: true
+{
+  watch: {
+    name: {
+      handler() {}
+    },
+    age: 'handler'
   }
 }
 ```
 
-若是 handler 为字符串, 便执行 handler = vm[handler]; 即这种情况:
-
-```js
-watch: {
-  b: 'someMethod'
-}
-```
-
-经过以上两步操作, 这时候的 handler 为我们的监听函数, 当然有特殊情况, 也就是 handler 原先是一个对象, 对象的 handler 也是对象的情况, 这里我们先不讨论, 接着往下看; createWatch 最后返回 vm.$watch(expOrFn, handler, options) , 我们再追踪一下 [$watch](https://github.com/vuejs/vue/blob/2.6/src/core/instance/state.js#L345) :
+最终 handler 被设置为 watch 的回调函数；createWatcher 最后返回了 `vm.$watch` 函数，接着追踪 `$watch` ：
 
 ```js
 Vue.prototype.$watch = function (
@@ -197,23 +174,12 @@ Vue.prototype.$watch = function (
 }
 ```
 
-$watch 是 Vue 原型链上的一个方法, 首先判断传入的 cb 参数, 也就是上面的 handler , 当 cb 为一个 对象 (指Object, 而非Function)时, 重新执行 createWatcher , 这里也就解决了前面刚刚说到的: handler 是对象的问题; 接着将 options.user 设置为 true , 并创建一个 watcher ; 接着, 根据 options.immediate 是否为 true 决定是否立即执行 cb 函数, 并将 watcher.value 作为 cb 的参数传入, 这便是以下的 watch 语法的具体实现:
+可以看到 `$watch` 是 vue 原型链上的一个方法：设置 option.user 为 true，并创建一个观察者实例 Watcher，接着，若是 options.immediate 为 true，则执行回调函数，这也就是 watch 回调函数立即执行的原理。
+
+观察者 Watcher 用于订阅响应式数据的变化，主要源码如下：
 
 ```js
-// 该回调将会在侦听开始之后被立即调用
-{
-  watch: {
-    d: {
-      handler: 'someMethod',
-      immediate: true
-    }
-  }
-}
-```
-
-回到 watcher 上面来, 这是实现数据监听的核心部分; watcher 的构造函数为 [Watcher](https://github.com/vuejs/vue/blob/2.6/src/core/observer/watcher.js#L26) , 先从 Watcher 的[构造函数](https://github.com/vuejs/vue/blob/2.6/src/core/observer/watcher.js#L45)进行解析, 以下省略了无关代码:
-
-```js
+// 省略了无关紧要的代码
 constructor (
   vm: Component,
   expOrFn: string | Function,
@@ -222,17 +188,12 @@ constructor (
   isRenderWatcher?: boolean
 ) {
   this.vm = vm
-  vm._watchers.push(this)
   // options
   if (options) {
     this.deep = !!options.deep
     this.user = !!options.user
   }
   this.cb = cb
-  this.active = true
-  this.expression = process.env.NODE_ENV !== 'production'
-    ? expOrFn.toString()
-    : ''
   // parse expression for getter
   if (typeof expOrFn === 'function') {
     this.getter = expOrFn
@@ -248,7 +209,7 @@ constructor (
 }
 ```
 
-分别将 options.deep 和 options.user 赋值给 this.deep 和 this.user, cb 函数赋值给 this.cb ; 判断 expOrFn 的类型, expOrFn 是watch 的 key , 因此我们默认为字符串类型, 使用 parsePath 进行转换后再赋值给 this.getter; 以下为 [parsePath](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/core/util/lang.js#L34) :
+分别将 options 的 deep 和 user 属性赋值给 Watcher 的 deep 和 user 属性，将 cb 回调函数赋值给 Watcher 的 cb 属性；再判断 expOrFn 是否为函数，此时 expOrFn 为 watch 的属性名，因此为字符串类型，因此将会执行 `this.getter = parsePath(expOrFn)`，下面是 [parsePath](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/core/util/lang.js#L34) 的源码：
 
 ```js
 const unicodeLetters = 'a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'
@@ -268,15 +229,17 @@ function parsePath (path: string): any {
 }
 ```
 
-parsePath 传入一个参数 path , 使用 String.prototype.split 对 path 进行处理, 以 . 为分隔点生成一个数组 segments , 最后返回一个函数, 函数执行时会对传入参数 obj 进行多层级属性访问, 最后返回一个属性值; 举个例子, 假设 path 为 "a.b.c", 那么函数执行时会先访问 obj.a , 再访问 obj.a.b , 最后访问 obj.a.b.c ,并返回 obj.a.b.c , 这是一个非常巧妙的设计, 后面会讲到; 回到 Watcher 的构造函数, 经过前面的折腾, 此时 this.getter 得到一个函数作为值; 接着执行以下代码:
+parsePath 的逻辑非常简单，使用字符串的 split 方法，以 . 作为分割点，对 path 进行切割，并生成属性数组，最终返回函数，当函数执行时，便会对传入的对象进行深度层级访问，并返回最终的属性值；举个简单的例子，假设 path 为 “a.b”，那么函数执行时会先访问 obj.a，再访问 obj.a.b~
+
+回到 Watcher 构造函数，此时 this.getter 的值为 parsePath 生成的函数，接着往下看：
 
 ```js
 this.value = this.lazy
-    ? undefined
-    : this.get()
+  ? undefined
+  : this.get()
 ```
 
-this.lazy 为 false , 执行 this.get() 获取值, 并将值缓存在 this.value 中; so, 接着看 get 方法:
+this.lazy 为 false，于是执行 this.get 函数，并将返回值缓存到 this.value 中：
 
 ```js
 get () {
@@ -304,80 +267,9 @@ get () {
 }
 ```
 
-pushTarget(this) 的作用是将当前 watcher 设置为 [Dep.target](http://dep.target/) ; [Dep.target](http://dep.target/) 是一个储存 watcher 的全局变量, 这里不作细讲, 只需要知道就好; 接着执行 this.getter.call(vm, vm) , 对 vm 的属性进行层级访问, 触发 data 中目标属性的 get 方法, 触发属性对应的 [dep.depend](https://github.com/vuejs/vue/blob/2.6/src/core/observer/dep.js#L31) 方法, 进行依赖收集;
+get 函数便是关键了，首先执行 `pushTarget(this)` 将当前的观察者 Watcher 设置为 Dep.target，Dep.target 是一个用于存储 Watcher 的全局变量；接着执行 this.getter 方法，对监听属性进行层级访问，触发各级属性的 get 方法，将当前 Dep.target 收集到对应属性的 dep.subs 数组中，实现依赖收集；而若是 this.deep 为 true，则会执行 traverse 方法，对 value 进行深度访问，触发 value 所有属性的 get 方法，实现深度监听；
 
-```js
-depend () {
-  if (Dep.target) {
-    Dep.target.addDep(this)
-  }
-}
-```
-
-[Dep.target](http://dep.target/) 为当前的 watcher , 因此代码可以理解为: [watcher.addDep](https://github.com/vuejs/vue/blob/2.6/src/core/observer/watcher.js#L128)(this) :
-
-```js
-addDep (dep: Dep) {
-  const id = dep.id
-  if (!this.newDepIds.has(id)) {
-    this.newDepIds.add(id)
-    this.newDeps.push(dep)
-    if (!this.depIds.has(id)) {
-      dep.addSub(this)
-    }
-  }
-}
-```
-
-反复横跳, 执行 dep.addSub(this) , 将 watcher 加入 dep.subs 列表中:
-
-```js
-addSub (sub: Watcher) {
-  this.subs.push(sub)
-}
-```
-
-上面便是依赖收集的全过程, 接着回到前面的代码中: 如果 this.deep 为 true , 也就是 watch 中设置深层监听, 会执行 [traverse](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/core/observer/traverse.js#L14) 对 value 进行深度访问, 触发 value 所有属性的 get 方法, 实现依赖收集, 效果和 parsePath 一致:
-
-```js
-if (this.deep) {
-  traverse(value)
-}
-```
-
-[traverse](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/core/observer/traverse.js#L14)的代码如下:
-
-```js
-function traverse (val: any) {
-  _traverse(val, seenObjects)
-  seenObjects.clear()
-}
-
-function _traverse (val: any, seen: SimpleSet) {
-  let i, keys
-  const isA = Array.isArray(val)
-  if ((!isA && !isObject(val)) || Object.isFrozen(val) || val instanceof VNode) {
-    return
-  }
-  if (val.__ob__) {
-    const depId = val.__ob__.dep.id
-    if (seen.has(depId)) {
-      return
-    }
-    seen.add(depId)
-  }
-  if (isA) {
-    i = val.length
-    while (i--) _traverse(val[i], seen)
-  } else {
-    keys = Object.keys(val)
-    i = keys.length
-    while (i--) _traverse(val[keys[i]], seen)
-  }
-}
-```
-
-当 data 的属性发生变动时, 触发属性的 set 方法, 执行属性对应的 dep.notify 方法, 通知收集的所有 watcher , 执行 [watcher.update](https://github.com/vuejs/vue/blob/2.6/src/core/observer/watcher.js#L164) 方法进行更新:
+当监听属性发生变化时，便会触发相应数据的 set 方法，执行属性的 dep.notify 方法，通知 dep.subs 中收集到的所有观察者，并执行 watcher.update 方法：
 
 ```js
 update () {
@@ -392,7 +284,7 @@ update () {
 }
 ```
 
-执行 [queueWatcher](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/core/observer/scheduler.js#L130) 方法, 进行 dom 更新, 但这里的重点不在于 dom 更新, 顺着代码往下看:
+lazy 和 sync 都为 false，因此直接执行 queueWatcher 函数：
 
 ```js
 function queueWatcher (watcher: Watcher) {
@@ -424,7 +316,7 @@ function queueWatcher (watcher: Watcher) {
 }
 ```
 
-最终执行 nextTick(flushSchedulerQueue) , 这里不对 nextTick 细化了, 只需要理解为在当前事件循环结束调用了 flushSchedulerQueue 方法, 所以我们看一下 [flushSchedulerQueue](https://github.com/vuejs/vue/blob/edf7df0c837557dd3ea8d7b42ad8d4b21858ade0/src/core/observer/scheduler.js#L38) :
+queueWatcher 函数执行时，先将观察者推入 queue 队列中，再执行 `nextTick(flushSchedulerQueue)`，nextTick 会在当前事件循环结束后调用 flushSchedulerQueue，因此我们简单看看 flushSchedulerQueue 方法做了什么：
 
 ```js
 function flushSchedulerQueue () {
@@ -438,7 +330,7 @@ function flushSchedulerQueue () {
 }
 ```
 
- 关键的一句: watcher.run() , 是的, 我们再横跳回 [watcher.run](https://github.com/vuejs/vue/blob/2.6/src/core/observer/watcher.js#L179) 中看看:
+函数调用了 watcher.run 方法：
 
 ```js
 run () {
@@ -469,17 +361,16 @@ run () {
 }
 ```
 
-执行 this.get() 获取监听属性的值, 判断值是否和缓存的值相等, 不同的话执行 this.cb.call(this.vm, value, oldValue) , 也就是 watch 设置的 handler 函数; 这便是 watch 实现 监听的原理~
+通过执行 this.get() 获取监听属性的值，再判断值和缓存的值是否相等，不同的话执行 this.cb.call(this.vm, value, oldValue)，也就是 watch 设置的回调函数！
 
-值得一提的是, parsePath 中返回的函数对 data 属性进行层级访问:
-
-> 假设 path 为 "a.b.c", 那么函数执行时会先访问 obj.a , 再访问 obj.a.b , 最后访问 obj.a.b.c
-
-也就是当前的 watcher 被 data.a 、data.a.b 、data.a.b.c 进行依赖收集, 当其中一个属性发生变化时都会触发 watch 设置的监听函数, 这是个非常巧妙的设计!
+以上就是 watch 实现监听的原理啦~
 
 ## 💻 总结
 
-vue 中 watch 对数据进行监听的原理为: 对 watch 每个属性创建一个 watcher , watcher 在初始化时会将监听的目标值缓存到 watcher.value 中, 因此触发 data[key] 的 get 方法, 被对应的 dep 进行依赖收集; 当 data[key] 发生变动时触发 set 方法, 执行 dep.notify 方法, 通知所有收集的依赖 watcher , 触发收集的 watch watcher , 执行 watcher.cb , 也就是 watch 中的监听函数 (*￣︶￣)
+vue 中 watch 对数据进行监听的原理为：
+
+1. 遍历 watch，给每个 watch 属性创建一个观察者 watcher；
+2. watcher 初始化时会获取监听属性的值，并将值保存在缓存中，也因此触发监听属性的 get 方法，被属性的 dep 收集；
+3. 当监听属性发生变化时，触发 set 方法，执行属性的 dep.notify 方法，通知所有被收集的观察者，触发 watcher.update，执行 watch 回调函数；
 
 多谢观看~请点个赞o(￣▽￣)ｄ
-
