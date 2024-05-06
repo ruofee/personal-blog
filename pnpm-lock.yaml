@@ -30,8 +30,8 @@ devDependencies:
     specifier: 2.0.0-rc.0
     version: 2.0.0-rc.0(@vuepress/client@2.0.0-rc.0)(less@4.2.0)(vue@3.3.8)
   vuepress-theme-blue:
-    specifier: 0.0.27-alpha
-    version: 0.0.27-alpha
+    specifier: 0.0.30-alpha
+    version: 0.0.30-alpha
 
 packages:
 
@@ -265,7 +265,7 @@ packages:
     peerDependencies:
       vue: '>=3.2.0'
     dependencies:
-      giscus: 1.4.0
+      giscus: 1.5.0
       vue: 3.3.8
     dev: true
 
@@ -1265,8 +1265,8 @@ packages:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: true
 
-  /dayjs@1.11.10:
-    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+  /dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
     dev: true
 
   /debug@4.3.4:
@@ -1429,8 +1429,8 @@ packages:
       reusify: 1.0.4
     dev: true
 
-  /fflate@0.8.1:
-    resolution: {integrity: sha512-/exOvEuc+/iaUm105QIiOt4LpBdMTWsXxqR0HDF35vx3fmaKzw7354gTilCh5rkzEt8WYyG//ku3h3nRmd7CHQ==}
+  /fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
     dev: true
 
   /fill-range@7.0.1:
@@ -1480,14 +1480,14 @@ packages:
     engines: {node: '>=16'}
     dev: true
 
-  /giscus@1.4.0:
-    resolution: {integrity: sha512-Pll+pcclTx47NcFDw8nuka2Ja85Gc4XWpzSgL0rszOQaMQRQIV8UMR+zP4a+/N3tV2TXc1SZ537kWlsN6EsAaw==}
+  /giscus@1.5.0:
+    resolution: {integrity: sha512-t3LL0qbSO3JXq3uyQeKpF5CegstGfKX/0gI6eDe1cmnI7D56R7j52yLdzw4pdKrg3VnufwCgCM3FDz7G1Qr6lg==}
     dependencies:
-      lit: 3.1.2
+      lit: 3.1.3
     dev: true
 
-  /github-markdown-css@5.5.0:
-    resolution: {integrity: sha512-Ncp4putm+cGteDhtNYKGdchM4uiIm5tmQcAQx/eEYhuM0sOdjZYNQOauQTaodjDQjfw7whU99MijwC1M0FUY4w==}
+  /github-markdown-css@5.5.1:
+    resolution: {integrity: sha512-2osyhNgFt7DEHnGHbgIifWawAqlc68gjJiGwO1xNw/S48jivj8kVaocsVkyJqUi3fm7fdYIDi4C6yOtcqR/aEQ==}
     engines: {node: '>=10'}
     dev: true
 
@@ -1683,26 +1683,26 @@ packages:
       uc.micro: 1.0.6
     dev: true
 
-  /lit-element@4.0.4:
-    resolution: {integrity: sha512-98CvgulX6eCPs6TyAIQoJZBCQPo80rgXR+dVBs61cstJXqtI+USQZAbA4gFHh6L/mxBx9MrgPLHLsUgDUHAcCQ==}
+  /lit-element@4.0.5:
+    resolution: {integrity: sha512-iTWskWZEtn9SyEf4aBG6rKT8GABZMrTWop1+jopsEOgEcugcXJGKuX5bEbkq9qfzY+XB4MAgCaSPwnNpdsNQ3Q==}
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.2.0
       '@lit/reactive-element': 2.0.4
-      lit-html: 3.1.2
+      lit-html: 3.1.3
     dev: true
 
-  /lit-html@3.1.2:
-    resolution: {integrity: sha512-3OBZSUrPnAHoKJ9AMjRL/m01YJxQMf+TMHanNtTHG68ubjnZxK0RFl102DPzsw4mWnHibfZIBJm3LWCZ/LmMvg==}
+  /lit-html@3.1.3:
+    resolution: {integrity: sha512-FwIbqDD8O/8lM4vUZ4KvQZjPPNx7V1VhT7vmRB8RBAO0AU6wuTVdoXiu2CivVjEGdugvcbPNBLtPE1y0ifplHA==}
     dependencies:
       '@types/trusted-types': 2.0.7
     dev: true
 
-  /lit@3.1.2:
-    resolution: {integrity: sha512-VZx5iAyMtX7CV4K8iTLdCkMaYZ7ipjJZ0JcSdJ0zIdGxxyurjIn7yuuSxNBD7QmjvcNJwr0JS4cAdAtsy7gZ6w==}
+  /lit@3.1.3:
+    resolution: {integrity: sha512-l4slfspEsnCcHVRTvaP7YnkTZEZggNFywLEIhQaGhYDczG+tu/vlgm/KaWIEjIp+ZyV20r2JnZctMb8LeLCG7Q==}
     dependencies:
       '@lit/reactive-element': 2.0.4
-      lit-element: 4.0.4
-      lit-html: 3.1.2
+      lit-element: 4.0.5
+      lit-html: 3.1.3
     dev: true
 
   /log-symbols@5.1.0:
@@ -2097,8 +2097,8 @@ packages:
     dev: true
     optional: true
 
-  /semver@7.5.4:
-    resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
+  /semver@7.6.0:
+    resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -2363,6 +2363,7 @@ packages:
   /vuepress-plugin-sitemap2@2.0.0-rc.0(vuepress@2.0.0-rc.0):
     resolution: {integrity: sha512-TyG4PzuYnEVV4hQVRzJYYWMmvknJz3+bJ2aoEEYvNfGXxMgi4H2FvVlMunRO/Tkh8qC7QKg8vz/ArEzxG4HwuQ==}
     engines: {node: '>=18.16.0', npm: '>=8', pnpm: '>=7', yarn: '>=2'}
+    deprecated: Please use @vuepress/plugin-sitemap@v2 instead
     peerDependencies:
       vuepress: 2.0.0-rc.0
       vuepress-vite: 2.0.0-rc.0
@@ -2406,11 +2407,11 @@ packages:
       '@vuepress/utils': 2.0.0-rc.0
       '@vueuse/core': 10.6.1(vue@3.3.8)
       cheerio: 1.0.0-rc.12
-      dayjs: 1.11.10
+      dayjs: 1.11.11
       execa: 8.0.1
-      fflate: 0.8.1
+      fflate: 0.8.2
       gray-matter: 4.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       striptags: 3.2.0
       vue: 3.3.8
       vue-router: 4.2.5(vue@3.3.8)
@@ -2421,8 +2422,8 @@ packages:
       - typescript
     dev: true
 
-  /vuepress-theme-blue@0.0.27-alpha:
-    resolution: {integrity: sha512-0uQjDxAvYVZCAYUtoFmsVHjVigrOLZbNB5jbKuiJ0ayl6sTP/9n8eGTUFS1LAGzbXA6+EYfg4tXSx1+lDjRVAA==}
+  /vuepress-theme-blue@0.0.30-alpha:
+    resolution: {integrity: sha512-rOA1TODIp+vKDRHGPZGG2WRnJXVQIYLDpX9zqRD4pfOTuspX84cR2TlQRUOvWiMx9np88Cc1n+O9+pcFcumETQ==}
     dependencies:
       '@giscus/vue': 2.4.0(vue@3.3.8)
       '@vuepress/client': 2.0.0-rc.0
@@ -2434,8 +2435,8 @@ packages:
       '@vuepress/plugin-palette': 2.0.0-rc.0
       '@vuepress/plugin-prismjs': 2.0.0-rc.0
       await-to-js: 3.0.0
-      dayjs: 1.11.10
-      github-markdown-css: 5.5.0
+      dayjs: 1.11.11
+      github-markdown-css: 5.5.1
       less: 4.2.0
       prismjs: 1.29.0
       tiny-pinyin: 1.3.2
