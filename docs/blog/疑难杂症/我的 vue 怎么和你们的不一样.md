@@ -1,7 +1,7 @@
 ---
 title: "我的 vue 怎么和你们的不一样"
 date: 2021/09/21 15:57:00
-banner: http://img.ruofee.cn/wallpaper2
+banner: /imgs/wallpaper2
 ---
 
 

@@ -1,7 +1,7 @@
 ---
 title: "提升效率的筛选器组件 vue-filter-box"
 date: 2022/1/29 00:00:01
-banner: http://img.ruofee.cn/vue
+banner: /imgs/vue
 ---
 
 ## vue-filter-box 的诞生
@@ -77,7 +77,7 @@ export default {
 
 `model` 是 vue-filter-box 的核心组成部分, 由 `modelItem` 构成; `modelItem` 是构成整个筛选器的筛选项; 比如上面的 `model`, 将会生成一个由输入框和下拉框构成的筛选器:
 
-![筛选器预览](http://img.ruofee.cn/vue-filter-box.jpg)
+![筛选器预览](/imgs/vue-filter-box.jpg)
 
 `type` 表示筛选项组件, 你可以使用字符串, 比如: `i-input`, 但请确保该组件已经全局注册; 你也可以传入一个 Vue Component, 具体可以查看 [v3 文档](https://github.com/ruofee/vue-filter-box#%E7%AD%9B%E9%80%89%E9%A1%B9%E7%BB%84%E4%BB%B6)!
 

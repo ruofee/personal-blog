@@ -1,7 +1,7 @@
 ---
 title: "探究: 为什么JavaScript要在body标签尾部引入?"
 date: 2020/10/23 00:00:00
-banner: http://img.ruofee.cn/code
+banner: /imgs/code
 ---
 
 

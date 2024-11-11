@@ -1,7 +1,7 @@
 ---
 title: "vitepress 的实现原理"
 date: 2023/2/1 19:30:00
-banner: http://img.ruofee.cn/vue
+banner: /imgs/vue
 ---
 
 ## 什么是 Vitepress？

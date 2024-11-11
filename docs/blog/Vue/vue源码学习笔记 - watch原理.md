@@ -1,7 +1,7 @@
 ---
 title: "vue源码学习笔记 - watch原理"
 date: 2021/02/26 00:00:00
-banner: http://img.ruofee.cn/vue
+banner: /imgs/vue
 ---
 
 

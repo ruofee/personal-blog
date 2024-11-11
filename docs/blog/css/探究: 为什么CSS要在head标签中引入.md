@@ -1,7 +1,7 @@
 ---
 title: "探究: 为什么CSS要在head标签中引入"
 date: 2020/10/29 00:00:00
-banner: http://img.ruofee.cn/wallpaper1
+banner: /imgs/wallpaper1
 ---
 
 

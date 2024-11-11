@@ -37,7 +37,7 @@ export default defineUserConfig({
     user: {
       username: 'Ruofee',
       description: '终不似, 少年游',
-      avatar: 'http://img.ruofee.cn/headImage?imageslim',
+      avatar: '/imgs/headImage',
       links: [
         {
           type: LinkType.Email,

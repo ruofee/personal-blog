@@ -1,7 +1,7 @@
 ---
 title: "由一次 try...catch 异常引发的设计思考"
 date: 2024/2/22
-banner: http://img.ruofee.cn/code
+banner: /imgs/code
 ---
 
 最近写代码遇到一个 Bug，进而引发了一些关于网络请求设计相关的思考。

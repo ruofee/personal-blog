@@ -1,7 +1,7 @@
 ---
 title: "奇怪的 axios 拦截器"
 date: 2022/10/27 10:34:00
-banner: http://img.ruofee.cn/wallpaper1
+banner: /imgs/wallpaper1
 ---
 
 

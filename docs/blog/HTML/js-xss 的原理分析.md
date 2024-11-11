@@ -1,7 +1,7 @@
 ---
 title: "js-xss 原理分析"
 date: 2024/8/23 19:09:00
-banner: http://img.ruofee.cn/wallpaper1
+banner: /imgs/wallpaper1
 ---
 
 

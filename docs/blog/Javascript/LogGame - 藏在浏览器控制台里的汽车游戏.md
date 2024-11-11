@@ -1,7 +1,7 @@
 ---
 title: "LogGame - 藏在浏览器控制台里的汽车游戏"
 date: 2020/08/11
-banner: http://img.ruofee.cn/code
+banner: /imgs/code
 ---
 
 
@@ -19,13 +19,13 @@ banner: http://img.ruofee.cn/code
 - 线上地址: [http://loggame.ruofee.cn](http://loggame.ruofee.cn)
 - 游戏展示:
 
-![图片](http://img.ruofee.cn/%E6%9C%AA%E5%91%BD%E5%90%8D.gif)
+![图片](/imgs/%E6%9C%AA%E5%91%BD%E5%90%8D.gif)
 
 ## 🚗 游戏教学
 
 1. 使用浏览器(推荐**Firefox**或**Chrome**, Firefox的话会更流畅)打开线上地址后, 右键打开菜单, 选择**检查元素/检查**;
 
-![图片](http://img.ruofee.cn/8ba23c030f1c7698a957b1ba8.png)
+![图片](/imgs/8ba23c030f1c7698a957b1ba8.png)
 
    
 

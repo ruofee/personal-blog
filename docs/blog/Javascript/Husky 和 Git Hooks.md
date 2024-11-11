@@ -1,7 +1,7 @@
 ---
 title: "Husky 和 Git Hooks"
 date: 2022/12/2
-banner: http://img.ruofee.cn/code
+banner: /imgs/code
 ---
 
 > 注意，文章中使用的 Husky 版本为 8.0.2 版本
@@ -72,7 +72,7 @@ husky-init 脚本的作用如下：
 
 其中 .husky.sh 对执行没有实质性的作用，可以忽略。核心在于第三步，`git config core.hooksPath .husky` 的作用是将 Git Hooks 的文件夹修改成 .husky 文件夹，因此 ./husky/pre-commit 文件将会被当成 pre-commit hook，此时执行 `git commit` 将会触发 Git Hooks！
 
-![初始化步骤](http://img.ruofee.cn/1669966201265.jpg)
+![初始化步骤](/imgs/1669966201265.jpg)
 
 但仍然存在一个问题，当项目被重新拉取到本地时，此时 husky 设置的 Git Hooks 应该如何才能生效呢？我们不会再重新执行一遍 `npx husky-init`，更不会手动去执行 `git config core.hooksPath .husky`。此时，prepare 脚本发挥出它应有的作用！husky-init 在 package.json 的 scripts 中新增脚本：
 
@@ -96,7 +96,7 @@ prepare 将会在执行完 `npm install` 之后触发，以下是 npm install �
 
 因此，在重新拉取项目之后，我们一旦执行安装依赖的操作，便会将 .husky 文件夹作为 Git Hooks 文件夹~ 完美实现 Git Hooks 的共享。
 
-![安装依赖](http://img.ruofee.cn/1669966329813.jpg)
+![安装依赖](/imgs/1669966329813.jpg)
 
 ## 总结
 

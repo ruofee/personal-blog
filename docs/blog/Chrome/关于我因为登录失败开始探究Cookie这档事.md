@@ -1,7 +1,7 @@
 ---
 title: "关于我因为登录失败开始探究Cookie这档事"
 date: 2020/11/04 00:00:00
-banner: http://img.ruofee.cn/chrome
+banner: /imgs/chrome
 ---
 
 

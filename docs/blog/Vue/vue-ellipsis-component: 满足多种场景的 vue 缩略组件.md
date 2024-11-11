@@ -1,7 +1,7 @@
 ---
 title: "vue-ellipsis-component: 满足多种场景的 vue 缩略组件"
 date: 2022/2/9 23:13:00
-banner: http://img.ruofee.cn/vue
+banner: /imgs/vue
 ---
 
 ## vue-ellipsis-component 的诞生

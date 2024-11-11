@@ -1,7 +1,7 @@
 ---
 title: "vue源码学习笔记 - nextTick原理"
 date: 2021/02/26 00:00:01
-banner: http://img.ruofee.cn/vue
+banner: /imgs/vue
 ---
 
 ## ⛽ 用法
